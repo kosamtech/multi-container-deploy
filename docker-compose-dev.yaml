@@ -16,6 +16,7 @@ services:
     restart: always
     ports:
       - "3050:80"
+      - "5000:5000"
   api:
     build:
       context: ./server
@@ -31,8 +32,6 @@ services:
       - PGDATABASE=postgres
       - PGPASSWORD=postgres_password
       - PGPORT=5432
-    ports:
-      - "5000:5000"
   client:
     build:
       context: ./client
@@ -41,7 +40,7 @@ services:
       - /app/node_modules
       - ./client:/app
     environment:
-      - VITE_API_URL=http://api
+      - VITE_API_URL=http://localhost:5000
   worker:
     build:
       context: ./worker

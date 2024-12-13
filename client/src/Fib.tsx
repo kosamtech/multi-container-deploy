@@ -13,7 +13,7 @@ interface CurrentValue {
 const Fib: FC = () => {
     const [seenIndexes, setSeenIndexes] = useState<SeenIndexes[]>([]);
     const [values, setValues] = useState<CurrentValue>({});
-    const [index, setIndex] = useState<number>(0);
+    const [index, setIndex] = useState<string>("");
 
     useEffect(() => {
         fetchValues();
@@ -37,11 +37,11 @@ const Fib: FC = () => {
     const handleSubmit = async (ev: FormEvent) => {
         ev.preventDefault();
         await axios.post(
-            `${import.meta.env.VITE_API_URL}"/api/values"`,
+            `${import.meta.env.VITE_API_URL}/api/values`,
             { index: index },
             { headers: { "Content-Type": "application/json" } },
         );
-        setIndex(0);
+        setIndex("");
         window.location.reload();
     };
 
@@ -66,9 +66,10 @@ const Fib: FC = () => {
                 <label>Enter your index:</label>
                 <input
                     value={index}
-                    onChange={(ev) => setIndex(parseInt(ev.target.value))}
+                    onChange={(ev) => setIndex(ev.target.value)}
+                    type="number"
                 />
-                <button style={{ marginLeft: "10px" }}>Submit</button>
+                <button style={{ marginLeft: "10px" }} type="submit">Submit</button>
             </form>
 
             <h3>Indexes I have seen:</h3>

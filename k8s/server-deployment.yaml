@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: kosamtech/multi-server
+          image: kosamtech/multi-server:latest
           ports:
             - containerPort: 5000
           env:

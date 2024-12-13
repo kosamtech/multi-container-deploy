@@ -1,11 +1,10 @@
-version: '3'
 services:
   client:
-    image: "kosamtech/multi-client"
+    image: "kosamtech/multi-client:latest"
     mem_limit: 128m
     hostname: client
   server:
-    image: "kosamtech/multi-server"
+    image: "kosamtech/multi-server:latest"
     mem_limit: 128m
     hostname: api
     environment:
@@ -18,7 +17,7 @@ services:
       - PGPORT=$PGPORT
 
   worker:
-    image: "kosamtech/multi-worker"
+    image: "kosamtech/multi-worker:latest"
     mem_limit: 128m
     hostname: worker
     environment:
@@ -26,7 +25,7 @@ services:
       - REDIS_PORT=$REDIS_PORT
 
   nginx:
-    image: "kosamtech/multi-nginx"
+    image: "kosamtech/multi-nginx:latest"
     mem_limit: 128m
     hostname: nginx
     ports:

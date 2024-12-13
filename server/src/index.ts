@@ -41,7 +41,7 @@ app.get("/", (req, res) => {
 });
 
 app.get("/api/values/all", async (req, res) => {
-    const values = await pgClient.query("SELECT * from fibvalues");
+    const values = await pgClient.query("SELECT * FROM fibvalues");
     res.status(200).json(values.rows);
 });
 
@@ -52,18 +52,24 @@ app.get("/api/values/current", async (req, res) => {
 
 app.post("/api/values", async (req, res) => {
     const index = req.body.index;
-    console.log("index from post", index)
 
     if (parseInt(index) > 40) {
-        res.status(422).json({message: "Index too high"});
+        res.status(422).json({ message: "Index too high" });
         return;
     }
 
     await redisClient.hSet("values", index, "Nothing yet!");
     await redisPublisher.publish("insert", String(index));
+    const exists = await pgClient.query(
+        "SELECT * FROM fibvalues WHERE value=$1",
+        [index],
+    );
+    if (exists.rows.length) {
+        res.status(200).json({ working: true, duplicate: true });
+        return;
+    }
     pgClient.query("INSERT INTO fibvalues(value) VALUES($1)", [index]);
-
-    res.send({ working: true });
+    res.status(200).json({ working: true, duplicate: false });
 });
 
 app.listen(5000, () => {

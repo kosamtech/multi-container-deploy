@@ -1,0 +1,31 @@
+{
+    "name": "server",
+    "version": "1.0.0",
+    "description": "Simple Express Server For Fib",
+    "main": "index.js",
+    "scripts": {
+        "build": "tsc",
+        "dev": "nodemon ./dist/index.js",
+        "start": "node ./dist/index.js"
+    },
+    "keywords": [
+        "Express",
+        "Server"
+    ],
+    "author": "Kosam Omollo",
+    "license": "MIT",
+    "dependencies": {
+        "cors": "^2.8.5",
+        "express": "^4.21.2",
+        "pg": "^8.13.1",
+        "redis": "^4.7.0"
+    },
+    "devDependencies": {
+        "@types/cors": "^2.8.17",
+        "@types/express": "^5.0.0",
+        "@types/node": "^22.10.2",
+        "@types/pg": "^8.11.10",
+        "nodemon": "^3.1.7",
+        "typescript": "^5.7.2"
+    }
+}

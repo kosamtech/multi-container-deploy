@@ -1,0 +1,25 @@
+{
+  "name": "worker",
+  "version": "1.0.0",
+  "description": "Worker Service For Fib Calculation",
+  "main": "index.js",
+  "scripts": {
+    "build": "tsc",
+    "dev": "nodemon ./dist/index.js",
+    "start": "node ./dist/index.js"
+  },
+  "keywords": [
+    "Redis",
+    "Worker"
+  ],
+  "author": "Kosam Omollo",
+  "license": "MIT",
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "nodemon": "^3.1.7",
+    "typescript": "^5.7.2"
+  },
+  "dependencies": {
+    "redis": "^4.7.0"
+  }
+}

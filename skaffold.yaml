@@ -1,0 +1,39 @@
+apiVersion: skaffold/v4beta11 latest
+kind: Config
+build:
+  local:
+    push: false
+  artifacts:
+    - image: kosamtech/multi-client
+      context: client
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "src/**/*.js"
+            dest: .
+          - src: "src/**/*.css"
+            dest: .
+          - src: "src/**/*.html"
+            dest: .
+    - image: kosamtech/multi-server
+      context: server
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+    - image: kosamtech/multi-worker
+      context: worker
+      docker:
+        dockerfile: Dockerfile.dev
+      sync:
+        manual:
+          - src: "*.js"
+            dest: .
+deploy:
+  kubectl:
+    manifests:
+      - ./k8s/*
+      - ./k8s-dev/*

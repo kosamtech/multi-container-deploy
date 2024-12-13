@@ -1,0 +1,13 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: kosamtech-com-tls
+spec:
+  secretName: kosamtech-com
+  issuerRef:
+    name: letsencrypt-prod
+    kind: ClusterIssuer
+  commonName: kosamtech.com
+  dnsNames:
+    - kosamtech.com
+    - www.kosamtech.com

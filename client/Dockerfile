@@ -1,4 +1,4 @@
-FROM node:22.11.0-alpine as buildStage
+FROM node:22.11.0-alpine As builder
 WORKDIR /app
 COPY ./package*.json ./
 RUN npm install
@@ -8,4 +8,4 @@ RUN npm run build
 FROM nginx
 EXPOSE 3000
 COPY ./nginx/default.conf /etc/nginx/conf.d/default.conf
-COPY --from=buildStage /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist /usr/share/nginx/html
